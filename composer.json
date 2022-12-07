@@ -16,7 +16,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Sebk\\SmallClassManipulator\\": "src"
+      "Sebk\\SmallClassManipulator\\": "src",
+      "Sebk\\SmallClassManipulator\\Test\\": "tests"
     }
   }
 }
