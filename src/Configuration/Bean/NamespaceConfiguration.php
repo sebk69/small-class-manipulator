@@ -58,8 +58,8 @@ class NamespaceConfiguration
         }
 
         // Set as from root namespace
-        if (!str_starts_with($namespace, '\\')) {
-            $namespace = '\\' . $namespace;
+        if (str_starts_with($namespace, '\\')) {
+            $namespace = substr($namespace, 1);
         }
 
         // Assign
@@ -99,7 +99,7 @@ class NamespaceConfiguration
         $namespaceParts = explode('\\', $namespace);
 
         foreach ($thisNamespaceParts as $key => $part) {
-            if (!$part == $namespaceParts[$key]) {
+            if ($part != $namespaceParts[$key]) {
                 return false;
             }
         }
@@ -142,18 +142,13 @@ class NamespaceConfiguration
      */
     public function getDirectoryPathFromNamespace(string $namespace): string
     {
-        // Set as root namespace
-        if (!str_starts_with($namespace, '\\')) {
-            $this->namespace = '\\' . $namespace;
-        }
-
         // Check base of namespace same as this namespace
         if (!str_starts_with($namespace, $this->namespace)) {
             throw new BadNamespace("$namespace doesn't match this namespace ($this->namespace)");
         }
 
         // Return path
-        return $this->path . str_replace('\\', '.', substr($namespace, strlen($this->namespace)));
+        return $this->path . str_replace('\\', '/', substr($namespace, strlen($this->namespace)));
     }
 
     /**

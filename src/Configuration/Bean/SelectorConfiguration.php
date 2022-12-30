@@ -7,6 +7,8 @@
 
 namespace Sebk\SmallClassManipulator\Configuration\Bean;
 
+use Sebk\SmallClassManipulator\Configuration\Exception\NotMatchException;
+
 class SelectorConfiguration implements \ArrayAccess
 {
 
@@ -19,9 +21,9 @@ class SelectorConfiguration implements \ArrayAccess
      */
     public function __construct(string $rootDir, array $config)
     {
-        foreach ($config as $namespace => $path)
+        foreach ($config as $name => $namespaceConfig)
         {
-            $this->namespaces[] = new NamespaceConfiguration($namespace, $rootDir . '/' .$path);
+            $this->namespaces[$name] = new NamespaceConfiguration($namespaceConfig['namespace'], $rootDir . '/' .$namespaceConfig['path']);
         }
     }
 
@@ -52,7 +54,7 @@ class SelectorConfiguration implements \ArrayAccess
      * @param mixed $offset
      * @return mixed
      */
-    public function offsetGet(mixed $offset): mixed
+    public function offsetGet(mixed $offset): NamespaceConfiguration
     {
         return $this->namespaces[$offset];
     }
@@ -67,4 +69,23 @@ class SelectorConfiguration implements \ArrayAccess
     {
         throw new \Exception('Can\'t remove namespace of selector after initialization');
     }
+
+    /**
+     * Get file path for a namespace
+     * @param $fullClassname
+     * @return string
+     * @throws NotMatchException
+     * @throws \Sebk\SmallClassManipulator\Configuration\Exception\BadNamespace
+     */
+    public function getClassFile($fullClassname)
+    {
+        foreach ($this->namespaces as $namespace) {
+            if ($namespace->isSubNamespace($fullClassname)) {
+                return $namespace->getClassFilepath($fullClassname);
+            }
+        }
+
+        throw new NotMatchException('The class ' . $fullClassname . ' not match with that selector');
+    }
+    
 }

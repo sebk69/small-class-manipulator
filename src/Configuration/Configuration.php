@@ -11,6 +11,7 @@ use Sebk\SmallClassManipulator\Configuration\Bean\NamespaceConfiguration;
 use Sebk\SmallClassManipulator\Configuration\Bean\SelectorConfiguration;
 use Sebk\SmallClassManipulator\Configuration\Exception\FileNotFoundException;
 use Sebk\SmallClassManipulator\Configuration\Exception\MissingParameterException;
+use Sebk\SmallClassManipulator\Configuration\Exception\SelectorNotFoundException;
 use Sebk\SmallClassManipulator\Configuration\Exception\WrongParameterTypeException;
 
 class Configuration
@@ -18,11 +19,20 @@ class Configuration
 
     // Parameters
     const SELECTORS = 'selectors';
-    const ROOT_DIR = 'root_dir';
+    const ROOT_DIR = 'rootDir';
 
     /** @var SelectorConfiguration[] */
     protected array $selectors = [];
 
+    protected string $rootDir;
+
+    /**
+     * @param array $config
+     * @throws Exception\SyntaxErrorException
+     * @throws FileNotFoundException
+     * @throws MissingParameterException
+     * @throws WrongParameterTypeException
+     */
     public function __construct(array $config)
     {
 
@@ -35,6 +45,8 @@ class Configuration
         if (!is_dir($config[static::ROOT_DIR])) {
             throw new FileNotFoundException('Base path (' . $config[static::ROOT_DIR] . ') is not a directory');
         }
+
+        $this->rootDir = $config[static::ROOT_DIR];
 
         // Check public selectors exists
         if (!array_key_exists(static::SELECTORS, $config)) {
@@ -50,6 +62,31 @@ class Configuration
         foreach ($config[static::SELECTORS] as $selectorKey => $selectorNamespaceConfig) {
             $this->selectors[$selectorKey] = new SelectorConfiguration($config[static::ROOT_DIR], $selectorNamespaceConfig);
         }
+
+    }
+
+    /**
+     * Get root directory
+     * @return string
+     */
+    public function getRootDir(): string
+    {
+        return $this->rootDir;
+    }
+
+    /**
+     *
+     * @param $key
+     * @return NamespaceConfiguration
+     * @throws SelectorNotFoundException
+     */
+    public function getSelector($key): SelectorConfiguration
+    {
+        if (!array_key_exists($key, $this->selectors)) {
+            throw new SelectorNotFoundException('Selector not found (' . $key . ')');
+        }
+
+        return $this->selectors[$key];
     }
 
 }

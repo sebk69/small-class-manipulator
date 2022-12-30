@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec -it small-class-manipulator-unit-test ./vendor/bin/phpunit --testdox tests

@@ -13,6 +13,6 @@ WORKDIR /usr/lib/small-class-manipulator
 # run tests
 COPY . /usr/lib/small-class-manipulator
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer update
-RUN ./vendor/bin/phpunit --testdox tests
+RUN if [ '$BUILD' == '1' ]; then ./vendor/bin/phpunit --testdox tests; fi
 
 ENTRYPOINT bash -c 'if [ '$BUILD' == '0' ]; then sleep infinity; fi'
