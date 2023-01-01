@@ -5,9 +5,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Exception;
+namespace Sebk\SmallClassManipulator\ClassFile\Element\Exception;
 
-class SyntaxErrorException extends ClassManipulatorException
+class ClassScopeException extends \Exception
 {
 
 }

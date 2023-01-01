@@ -7,119 +7,76 @@
 
 namespace Sebk\SmallClassManipulator\ClassFile\Element;
 
-use Couchbase\ScopeSpec;
+use Sebk\SmallClassManipulator\ClassFile\Element\Bean\MethodStructure;
 use Sebk\SmallClassManipulator\ClassFile\Element\Bean\TypedVarStructure;
+use Sebk\SmallClassManipulator\ClassFile\Element\Exception\WrongElementClass;
 use Sebk\SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
-use Sebk\SmallClassManipulator\ClassFile\Element\Trait\ClassScopes;
-use Sebk\SmallClassManipulator\ClassFile\Exception\AlreadyExistsException;
-use Sebk\SmallClassManipulator\ClassFile\Exception\NotFoundException;
+use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
 use Sebk\SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
-use function Webmozart\Assert\Tests\StaticAnalysis\boolean;
 
-class MethodElement extends BaseElement
+class MethodElement extends AbstractElement
 {
 
-    const REGEXPR = '(static)?[ \t\n\r]*(public|private|protected)?[ \t\n\r]*(static)?[ \t\n\r]*function[ \t\n\r][ \t\n\r]*([\_|a-z|A-Z|0-9]*)[ \t\n\r]*\(';
+    const REGEXP = '^[ \t\n\r]*(static)?[ \t\n\r]*(public|private|protected)?[ \t\n\r]*(static)?[ \t\n\r]*function[ \t\n\r][ \t\n\r]*([\_|a-z|A-Z|0-9]*)[ \t\n\r]*\(';
+    const PARAM_REGEXP = '[ \t\n\r]*(public|private|protected)?[ \t\n\r]*([A-Z|a-z]*)[ \t\n\r]*(\$[\_|a-z|A-Z|0-9]*)[=(\S\s)]?';
 
-    use ClassScoped;
-    protected string $name;
-    /** @var TypedVarStructure[] */
-    protected array $parameters;
-    protected string $content;
+    protected MethodStructure $element;
 
+    /**
+     * Is next element is a method ?
+     * @param string $content
+     * @param int $start
+     * @return bool
+     */
     public static function nextElementIsMethod(string $content, int $start): bool
     {
-        return preg_match('/' . static::REGEXPR . '/', mb_substr($content, $start));
+        $matches = preg_match_all('/' . static::REGEXP . '/', mb_substr($content, $start));
+
+        return !empty($matches);
     }
 
     /**
-     * @return string
+     * @return MethodStructure
      */
-    public function getName(): string
+    public function getElement(): MethodStructure
     {
-        return $this->name;
+        return $this->element;
     }
 
     /**
-     * @param string $name
-     * @return MethodElement
-     */
-    public function setName(string $name): MethodElement
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    /**
-     * @return array
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * @param TypedVarStructure $parameter
-     * @return MethodElement
-     */
-    public function addParameter(TypedVarStructure $parameter): static
-    {
-        if (array_key_exists($parameter->getName(), $this->parameters)) {
-            throw new AlreadyExistsException('Can\'t add parameter \'' . $parameter->getName() . '\' : it aleady exists');
-        }
-
-        $this->parameters[$parameter->getName()] = $parameter;
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param bool $silentFail
+     * @param MethodStructure $element
      * @return $this
-     * @throws NotFoundException
+     * @throws WrongElementClass
      */
-    public function removeParameter(string $name, bool $silentFail = true): static
+    public function setElement($element): MethodElement
     {
-        if (!array_key_exists($name, $this->parameters)) {
-            if (!$silentFail) {
-                throw new NotFoundException('Can\'t find parameter \'' . $name . '\' : not found');
-            }
-            return $this;
+        if (!$element instanceof MethodStructure) {
+            throw new WrongElementClass('Wrong argument type (' . $element::class . '). It must be ' . MethodStructure::class);
         }
 
-        unset($this->parameters[$name]);
-
+        $this->element = $element;
         return $this;
     }
 
     /**
+     * Parse method
      * @param string $content
-     * @return MethodElement
+     * @param int $start
+     * @return int
+     * @throws Exception\ClassScopeException
+     * @throws SyntaxErrorException
+     * @throws WrongElementClass
      */
-    public function setContent(string $content): MethodElement
-    {
-        $this->content = $content;
-        return $this;
-    }
-
     public function parse(string $content, int $start): int
     {
         $definitionArray = [];
         preg_match(
-            '/' . static::REGEXPR . '/',
+            '/' . static::REGEXP . '/',
             mb_substr($content, $start),
         $definitionArray
         );
-        var_dump(substr($content, $start));
 
+        $isStatic = false;
         foreach ($definitionArray as $key => $part)
         {
             if ($key == 0) {
@@ -127,19 +84,36 @@ class MethodElement extends BaseElement
             }
 
             if ($part == 'static') {
-                $this->setStatic(true);
-            } else if (in_array($part, ClassScopes::listCasesAsString())) {
-                $this->setScope(ClassScopes::getScopeFromString($part));
+                $isStatic = true;
+            } else if (in_array($part, ClassScope::listCasesAsString())) {
+                $scope = ClassScope::getScopeFromString($part);
             } else if ($part != '') {
-                $this->setName($part);
+                $name = $part;
             }
         }
+        $this->setElement(new MethodStructure($name));
+        $this->getElement()->setScope($scope);
+        $this->getElement()->setStatic($isStatic);
         $start = $this->parseParameters($content, $start + mb_strlen($definitionArray[0]));
-        $this->setElement(trim(mb_substr($content, $start + 1, ($end = $this->findEndBracket($content, $start)) - $start + 1)));
+        if (mb_substr($content, $start, 1) == ':') {
+            for ($i = $start + 1; !in_array(mb_substr($content, $i + 1, 1), ['{', ';']); $i++);
+            $this->getElement()->setReturnType(trim(mb_substr($content, $start + 1, $i - $start - 1)));
+            $start = $i;
+        }
+        $this->getElement()->setContent(trim(mb_substr($content, $start, $this->findEndBracket($content, $start) - $start + 1)));
 
-        return $end + 1;
+        return $this->findEndBracket($content, $start) + 1;
     }
 
+    /**
+     * Parse parameters
+     * @param $content
+     * @param $start
+     * @return int
+     * @throws Exception\ClassScopeException
+     * @throws SyntaxErrorException
+     * @throws \Sebk\SmallClassManipulator\ClassFile\Exception\AlreadyExistsException
+     */
     protected function parseParameters($content, $start): int
     {
         for ($end = $start; $end < mb_strlen($content) && $content[$end] != ')'; $end++);
@@ -148,47 +122,43 @@ class MethodElement extends BaseElement
             throw new SyntaxErrorException('Unexpected end of file reading definition of ' . $this->getName());
         }
 
+        $end--;
         if ($end - $start > 0) {
             $parameters = explode(',', mb_substr($content, $start, $end - $start));
             foreach ($parameters as $parameter) {
-                $exploded = explode(' ', trim($parameter));
                 $final = [];
-                foreach ($exploded as $key => $raw) {
-                    if (trim($raw) != '') {
-                        $final[] = trim($raw);
-                    }
-                }
+                preg_match('/' . static::PARAM_REGEXP . '/', $parameter, $final);
 
-                var_dump($final);
-                if (count($final) == 1) {
-                    $structParam = new TypedVarStructure($final[0]);
-                } else if (count($final) == 2 && in_array($final[0], ClassScopes::listCasesAsString())) {
-                    $structParam = new TypedVarStructure($final[1], null, ClassScopes::getScopeFromString($final[0]));
-                } else if (count($final) == 2 && !in_array($final[0], ClassScopes::listCasesAsString())) {
-                    $structParam = new TypedVarStructure($final[1], $final[0]);
-                } else {
-                    $structParam = new TypedVarStructure($final[2], $final[1], ClassScopes::getScopeFromString($final[0]));
-                }
-                $this->addParameter($structParam);
+                $structParam = new TypedVarStructure($final[3], $final[2] != '' ? $final[2] : null, $final[4] ?? null, !empty($final[1]) ? ClassScope::getScopeFromString($final[1]) : null);
+                $this->getElement()->addParameter($structParam);
             }
         }
 
-        return $end + 2;
+        return $end + 1;
     }
 
-    // TODO add string parsing
+    /**
+     * Find the end of bracket
+     * @param $content
+     * @param $start
+     * @return int
+     * @throws SyntaxErrorException
+     */
     protected function findEndBracket($content, $start): int
     {
         $levelMap = [];
         $started = false;
         for ($i = $start; $i < mb_strlen($content); $i++) {
+            if (in_array(mb_substr($content, $i, 1), ['"', '\''])) {
+                $i = static::findEndOfString($content, $i);
+            }
             if (in_array(mb_substr($content, $i, 1), ['{', '[', '('])) {
-                $levelMap[count($levelMap)] = mb_substr($content, $i, 1);
+                $levelMap[] = mb_substr($content, $i, 1);
                 $started = true;
             }
             if (in_array(mb_substr($content, $i, 1), ['}', ']', ')'])) {
                 if (!$started) {
-                    throw new SyntaxErrorException('Syntax error in definition of ' . $this->getName());
+                    throw new SyntaxErrorException('Syntax error in definition of ' . $this->element->getName());
                 }
                 $lastLevel = $levelMap[count($levelMap) - 1];
                 $found = true;

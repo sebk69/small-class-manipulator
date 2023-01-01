@@ -7,24 +7,25 @@
 
 namespace Sebk\SmallClassManipulator\ClassFile\Element\Bean;
 
+use Sebk\SmallClassManipulator\ClassFile\Element\ConstElement;
 use Sebk\SmallClassManipulator\ClassFile\Element\MethodElement;
+use Sebk\SmallClassManipulator\ClassFile\Element\PropertyElement;
 use Sebk\SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
 
 class ClassContentStructure
 {
 
-    /**
-     * @var MethodElement[]
-     */
+    /** @var MethodElement[] */
     protected array $methods = [];
 
-    /**
-     * @var Property
-     */
+    /** @var ConstElement[] */
+    protected array $consts = [];
+
+    /** @var PropertyElement[] */
     protected array $properties = [];
 
     /**
-     * @return array
+     * @return MethodElement[]
      */
     public function getMethods(): array
     {
@@ -32,17 +33,7 @@ class ClassContentStructure
     }
 
     /**
-     * @param array $methods
-     * @return ClassContentStructure
-     */
-    public function setMethods(array $methods): ClassContentStructure
-    {
-        $this->methods = $methods;
-        return $this;
-    }
-
-    /**
-     * @return array
+     * @return PropertyElement[]
      */
     public function getProperties(): array
     {
@@ -50,29 +41,62 @@ class ClassContentStructure
     }
 
     /**
-     * @param array $properties
-     * @return ClassContentStructure
+     * @return ConstElement[]
      */
-    public function setProperties(array $properties): ClassContentStructure
+    public function getConsts(): array
     {
-        $this->properties = $properties;
-        return $this;
+        return $this->consts;
     }
 
     /**
-     * Add a method
+     * Add a method element
      * @param MethodElement $element
      * @return $this
      * @throws SyntaxErrorException
      */
     public function addMethod(MethodElement $element): ClassContentStructure
     {
-        if (array_key_exists($element->getName(), $this->methods)) {
-            throw new SyntaxErrorException('Duplicate method : ' . $element->getName());
+        if (array_key_exists($element->getElement()->getName(), $this->methods)) {
+            throw new SyntaxErrorException('Duplicate method : ' . $element->getElement()->getName());
         }
 
-        $this->methods[$element->getName()] = $element;
+        $this->methods[$element->getElement()->getName()] = $element;
 
         return $this;
     }
+
+    /**
+     * Add a const element
+     * @param ConstElement $element
+     * @return $this
+     * @throws SyntaxErrorException
+     */
+    public function addConst(ConstElement $element): ClassContentStructure
+    {
+        if (array_key_exists($element->getElement()->getName(), $this->consts)) {
+            throw new SyntaxErrorException('Duplicate const : ' . $element->getElement()['name']);
+        }
+
+        $this->consts[$element->getElement()->getName()] = $element;
+
+        return $this;
+    }
+
+    /**
+     * Add a property element
+     * @param PropertyElement $element
+     * @return $this
+     * @throws SyntaxErrorException
+     */
+    public function addProperty(PropertyElement $element): ClassContentStructure
+    {
+        if (array_key_exists($element->getElement()->getName(), $this->properties)) {
+            throw new SyntaxErrorException('Duplicate property : ' . $element->getElement()->getName());
+        }
+
+        $this->properties[$element->getElement()->getName()] = $element;
+
+        return $this;
+    }
+
 }

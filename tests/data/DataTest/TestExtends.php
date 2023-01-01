@@ -10,9 +10,10 @@ namespace DataTest\Testing;
 use DataTest\Testing\Contracts\TestInterface;
 use DataTest\Testing\Contracts\TestInterface2;
 
-class TestExtends extends TestAbstractClass implements TestInterface, TestInterface2
+class TestExtends extends TestAbstractClass implements TestInterface, TestInterface2 // Class line comment
 {
 
-    public function __construct() {}
+    public function __construct() // construct command
+    {}
 
 }

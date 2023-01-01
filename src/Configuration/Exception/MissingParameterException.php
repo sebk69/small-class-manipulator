@@ -10,7 +10,7 @@ namespace Sebk\SmallClassManipulator\Configuration\Exception;
 class MissingParameterException extends ConfigurationException
 {
 
-    public function __construct(string $parameter = "", int $code = 0, ?Throwable $previous = null)
+    public function __construct(string $parameter = "", int $code = 0, ?\Throwable $previous = null)
     {
         parent::__construct('Missing parameter : ' . $parameter, $code, $previous);
     }

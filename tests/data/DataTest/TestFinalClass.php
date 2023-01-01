@@ -13,7 +13,7 @@ use DataTest\Testing\Contracts\TestInterface;
 /**
  * Class TestClass
  */
-class TestFinalClass implements TestInterface
+final class TestFinalClass implements TestInterface
 {
 
     /** @var string CONST */
@@ -97,5 +97,3 @@ class TestFinalClass implements TestInterface
 
     // End of class
 }
-
-// End of file

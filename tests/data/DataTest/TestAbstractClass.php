@@ -11,11 +11,12 @@ namespace DataTest\Testing;
 /**
  * Class TestClass
  */
-class TestAbstractClass
+abstract class TestAbstractClass
 {
 
     /** @var string CONST */
     const CONST = "const";
+
     // PUBLIC CONST
     public const PUBLIC_CONST = "const public";
     /**
@@ -23,7 +24,7 @@ class TestAbstractClass
      */
     private const PRIVATE_CONST = "const private";
     /*PROTECTED CONST*/
-    protected const PROTECTED_CONST = "const protected";
+    protected const PROTECTED_CONST = "const protected"; // protect yourself
 
     /**
      * @var string $publicProp
@@ -31,7 +32,7 @@ class TestAbstractClass
     public string $publicProp = "public";
     // private
     /* prop */
-    private $privateProp = "private";
+    private $privateProp = "private"; // This is very private
     /** @var string $protectedProp */
     protected int $protectedProp = 0;
 
@@ -95,5 +96,3 @@ class TestAbstractClass
 
     // End of class
 }
-
-// End of file

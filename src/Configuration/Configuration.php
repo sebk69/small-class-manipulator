@@ -7,7 +7,6 @@
 
 namespace Sebk\SmallClassManipulator\Configuration;
 
-use Sebk\SmallClassManipulator\Configuration\Bean\NamespaceConfiguration;
 use Sebk\SmallClassManipulator\Configuration\Bean\SelectorConfiguration;
 use Sebk\SmallClassManipulator\Configuration\Exception\FileNotFoundException;
 use Sebk\SmallClassManipulator\Configuration\Exception\MissingParameterException;
@@ -77,7 +76,7 @@ class Configuration
     /**
      *
      * @param $key
-     * @return NamespaceConfiguration
+     * @return SelectorConfiguration
      * @throws SelectorNotFoundException
      */
     public function getSelector($key): SelectorConfiguration

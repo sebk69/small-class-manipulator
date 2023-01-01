@@ -5,9 +5,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element\Trait\Exception;
+namespace Sebk\SmallClassManipulator\ClassFile\Element\Exception;
 
-class ClassScopeException extends \Exception
+class WrongElementClass extends \Exception
 {
 
 }

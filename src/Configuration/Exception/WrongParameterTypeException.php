@@ -10,7 +10,7 @@ namespace Sebk\SmallClassManipulator\Configuration\Exception;
 class WrongParameterTypeException extends ConfigurationException
 {
 
-    public function __construct(string $parameter = "", int $code = 0, ?Throwable $previous = null)
+    public function __construct(string $parameter = "", int $code = 0, ?\Throwable $previous = null)
     {
         parent::__construct('Wrong parameter type (expecting array) : ' . $parameter, $code, $previous);
     }

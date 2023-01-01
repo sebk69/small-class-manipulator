@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is a part of small-class-manipulator
  * Copyright 2022 - Sébastien Kus
@@ -8,6 +9,7 @@
 namespace Sebk\SmallClassManipulator\Configuration\Bean;
 
 use Sebk\SmallClassManipulator\Configuration\Exception\NotMatchException;
+use Sebk\SmallClassManipulator\Configuration\Exception\SyntaxErrorException;
 
 class SelectorConfiguration implements \ArrayAccess
 {
@@ -16,8 +18,9 @@ class SelectorConfiguration implements \ArrayAccess
     protected array $namespaces = [];
 
     /**
+     * @param string $rootDir
      * @param array $config
-     * @throws \Sebk\SmallClassManipulator\Configuration\Exception\SyntaxErrorException
+     * @throws SyntaxErrorException
      */
     public function __construct(string $rootDir, array $config)
     {
@@ -77,7 +80,7 @@ class SelectorConfiguration implements \ArrayAccess
      * @throws NotMatchException
      * @throws \Sebk\SmallClassManipulator\Configuration\Exception\BadNamespace
      */
-    public function getClassFile($fullClassname)
+    public function getClassFilepath($fullClassname)
     {
         foreach ($this->namespaces as $namespace) {
             if ($namespace->isSubNamespace($fullClassname)) {

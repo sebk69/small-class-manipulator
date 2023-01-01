@@ -7,16 +7,28 @@
 
 namespace Sebk\SmallClassManipulator\ClassFile\Element\Bean;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Trait\ClassScopes;
+use Sebk\SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
+use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
 
 class TypedVarStructure
 {
 
+    use ClassScoped;
+
     public function __construct(
         protected string $name,
-        protected string $type = 'mixed',
-        protected ClassScopes|null $scope = null
-    ) {}
+        protected string|null $type = 'mixed',
+        protected string|null $value = null,
+        ClassScope|null $scope = null,
+        bool $isStatic = false,
+    ) {
+        if ($this->type === null) {
+            $this->type = 'mixed';
+        }
+        $this->setStatic($isStatic);
+
+        $this->setScope($scope);
+    }
 
     /**
      * @return string
@@ -51,6 +63,24 @@ class TypedVarStructure
     public function setName(string $name): TypedVarStructure
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param string|null $value
+     * @return TypedVarStructure
+     */
+    public function setValue(?string $value): TypedVarStructure
+    {
+        $this->value = $value;
         return $this;
     }
 

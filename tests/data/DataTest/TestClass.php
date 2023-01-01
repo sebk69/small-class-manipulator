@@ -95,5 +95,3 @@ class TestClass
 
     // End of class
 }
-
-// End of file

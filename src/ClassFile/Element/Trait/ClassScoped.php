@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnnecessaryStaticReferenceInspection */
+
 /*
  * This file is a part of small-class-manipulator
  * Copyright 2022 - Sébastien Kus
@@ -7,41 +8,13 @@
 
 namespace Sebk\SmallClassManipulator\ClassFile\Element\Trait;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Trait\Exception\ClassScopeException;
-
-enum ClassScopes {
-    case public;
-    case private;
-    case protected;
-
-    public static function listCasesAsString()
-    {
-        return array_map(function (ClassScopes $element) {
-            return $element->name;
-        }, static::cases());
-    }
-
-    /**
-     * @param string $scope
-     * @return ClassScopes
-     */
-    public static function getScopeFromString(string $scope): ClassScopes
-    {
-        foreach (ClassScopes::cases() as $case) {
-            if ($scope == $case->name) {
-                return $case;
-            }
-        }
-
-        throw new ClassScopeException('Undefined scope ' . $scope);
-    }
-}
+use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
 
 trait ClassScoped
 {
 
     protected bool $static = false;
-    protected ClassScopes $scope;
+    protected ClassScope|null $scope;
 
     /**
      * @return bool
@@ -65,16 +38,16 @@ trait ClassScoped
     /**
      * @return ClassScope
      */
-    public function getScope(): ClassScope
+    public function getScope(): ClassScope|null
     {
         return $this->scope;
     }
 
     /**
      * @param ClassScope $scope
-     * @return ClassScopes
+     * @return ClassScoped
      */
-    public function setScope(ClassScopes $scope): static
+    public function setScope(ClassScope|null $scope): static
     {
         $this->scope = $scope;
 
