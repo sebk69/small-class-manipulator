@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUndefinedVariableInspection */
+<?php
 
 /*
  * This file is a part of small-class-manipulator
@@ -23,6 +23,7 @@ class ClassFile
 {
 
     const PHP_START = '<?php';
+    const SPACE_INDENT = '    ';
 
     protected string $content;
 
@@ -278,7 +279,7 @@ class ClassFile
         $element->setElement(mb_substr($this->content, $start, $i - $start));
         $this->namespace = $element;
 
-        $commentData = AbstractElement::parseAfter($this->content, $i);
+        $commentData = AbstractElement::parseAfter($this->content, $i + 1);
         $element->setLineComment($commentData['comment']);
 
         return $commentData['newStart'] + 1;
@@ -531,7 +532,82 @@ class ClassFile
 
     public function generate(string $filePath): self
     {
-        $output = self::PHP_START . "\n";
+
+        // Create directory if not found
+        if (!is_dir(dirname($filePath))) {
+            mkdir(dirname($filePath), 0755, true);
+        }
+
+        // Prepare output
+        $output = self::PHP_START . "\n\n";
+
+        // Write namespace
+        $output .= $this->getNamespace()->getFormatedCommentBefore() . "\n";
+        $output .= 'namespace ' . $this->getNamespace()->getElement() . ';';
+        $output .= $this->getNamespace()->getFormatedLineComment() . "\n\n";
+
+        // Write uses
+        foreach ($this->getUses() as $use) {
+            $output .= $use->getFormatedCommentBefore();
+            $output .= 'use ' . $use->getElement() . ';';
+            $output .= $use->getFormatedLineComment() . "\n";
+        }
+
+        // Write class declaration
+        $output .= "\n" . $this->getClassname()->getFormatedCommentBefore();
+        $output .= ($this->isFinal ? 'final ' : ($this->isAbstract ? 'abstract ' : '')) . 'class ' . $this->getClassname()->getElement();
+        if (!empty($this->getExtends())) {
+            $output .= ' extends ' . $this->getExtends()->getElement();
+        }
+        if (!empty($this->implements)) {
+            $output .= ' implements ' . implode(', ', $this->implements);
+        }
+        $output .= $this->getNamespace()->getFormatedLineComment() . "\n";
+        $output .= "{\n\n";
+
+        // Write constants
+        foreach ($this->getContentStructure()->getConsts() as $const) {
+            $output .= (!empty($const->getFormatedCommentBefore()) ? "\n" . self::SPACE_INDENT : ''). $const->getFormatedCommentBefore();
+            $output .= self::SPACE_INDENT . ($const->getElement()->getScope() === null ? 'public ' : $const->getElement()->getScope()->name . ' ') .
+                'const ' . $const->getElement()->getName() . " = " . $const->getElement()->getValue() . ';';
+            $output .= $const->getFormatedLineComment() . "\n";
+        }
+
+        // Write properties
+        foreach ($this->getContentStructure()->getProperties() as $property) {
+            $output .= (!empty($property->getFormatedCommentBefore()) ? "\n" . self::SPACE_INDENT : ''). $property->getFormatedCommentBefore();
+            $output .= self::SPACE_INDENT . ($property->getElement()->getScope() === null ? 'public ' : $const->getElement()->getScope()->name . ' ') .
+                ($property->getElement()->isStatic() ? 'static ' : '') .
+                (empty($property->getElement()->getType()) ? 'mixed ' : $property->getElement()->getType() . ' ') .
+                $property->getElement()->getName() . " = " . $property->getElement()->getValue() . ';';
+            $output .= $property->getFormatedLineComment() . "\n";
+        }
+
+        // Write methods
+        foreach ($this->getContentStructure()->getMethods() as $method) {
+            $output .= (!empty($method->getFormatedCommentBefore()) ? "\n" . self::SPACE_INDENT : "\n") . $method->getFormatedCommentBefore();
+            $output .= self::SPACE_INDENT . ($method->getElement()->getScope() === null ? 'public ' : $method->getElement()->getScope()->name . ' ') .
+                ($method->getElement()->isStatic() ? 'static ' : '') .
+                'function ' .
+                $method->getElement()->getName() . " (";
+            $params = [];
+            if (count($method->getElement()->getParameters()) > 0) {
+                $output .= "\n";
+            }
+            foreach($method->getElement()->getParameters() as $param) {
+                $params[] = self::SPACE_INDENT . self::SPACE_INDENT .
+                    ($param->getScope() === null ? '' : $param->getScope()->name . ' ') .
+                    (empty($param->getType()) ? '' : $param->getType() . ' ') .
+                    $param->getName() . (!empty($param->getValue()) ? ' = ' . $param->getValue() : '');
+            }
+            $output .= implode(",\n", $params) . (count($params) == 0 ? ')' : "\n" . self::SPACE_INDENT . ')') .
+                (empty($method->getElement()->getReturnType()) ? ' ' : ': ' . $method->getElement()->getReturnType() . ' ');
+            $output .= !empty($method->getFormatedLineComment()) ? $method->getFormatedLineComment() . "\n" . self::SPACE_INDENT : '';
+            $output .= $method->getElement()->getContent() . "\n";
+        }
+
+        // Write end of class
+        $output .= "\n}";
 
         file_put_contents($filePath, $output);
 

@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnnecessaryStaticReferenceInspection */
+<?php
 
 /*
  * This file is a part of small-class-manipulator

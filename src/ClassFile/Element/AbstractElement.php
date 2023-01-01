@@ -17,7 +17,7 @@ abstract class AbstractElement
     const commentsStarts = ['/*', '//'];
 
     protected string|null $commentBefore = null;
-    protected string|null $LineComment = null;
+    protected string|null $lineComment = null;
 
     /**
      * @return string|null
@@ -42,16 +42,16 @@ abstract class AbstractElement
      */
     public function getLineComment(): ?string
     {
-        return $this->LineComment;
+        return $this->lineComment;
     }
 
     /**
      * @param string|null $LineComment
      * @return static
      */
-    public function setLineComment(?string $LineComment): static
+    public function setLineComment(?string $lineComment): static
     {
-        $this->LineComment = $LineComment;
+        $this->lineComment = $lineComment;
         return $this;
     }
 
@@ -157,12 +157,12 @@ abstract class AbstractElement
     private static function parseLineComment(string $content, int $start): array
     {
         for ($i = $start;
-             !in_array(mb_substr($content, $i, 1), str_split(static::lineEnds));
-             $i++)
+             !in_array(mb_substr($content, $i + 1, 1), str_split(static::lineEnds));
+             $i++);
 
         $comment = mb_substr($content, $start, $i - $start + 1) . "\n";
 
-        return ['comment' => $comment, 'newStart' => $i + 1];
+        return ['comment' => $comment, 'newStart' => $i + 2];
     }
 
     /**
@@ -201,7 +201,14 @@ abstract class AbstractElement
 
     public function getFormatedCommentBefore(): string
     {
-        return "/*" . substr($this->commentBefore, 0, strlen($this->commentBefore) - 2) . "*/";
+        return !empty(trim($this->commentBefore)) ? '/*' . substr($this->commentBefore, 0, strlen($this->commentBefore) - 1) . "*/\n" : '';
+    }
+
+    public function getFormatedLineComment(): string
+    {
+        $lineComment = trim(str_replace(["\n", "\r"], ' ', $this->getLineComment()));
+
+        return !empty($lineComment) ? ' // ' . $lineComment : '';
     }
 
 }

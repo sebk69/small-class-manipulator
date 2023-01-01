@@ -17,12 +17,11 @@ class TestClass
     /** @var string CONST */
     const CONST = "const";
     // PUBLIC CONST
-    public const PUBLIC_CONST = "const public";
+    public const PUBLIC_CONST = "const public"; // public test
     /**
      * PRIVATE CONST
      */
     private const PRIVATE_CONST = "const private";
-    /*PROTECTED CONST*/
     protected const PROTECTED_CONST = "const protected";
 
     /**
@@ -32,7 +31,6 @@ class TestClass
     // private
     /* prop */
     private $privateProp = "private";
-    /** @var string $protectedProp */
     protected int $protectedProp = 0;
 
     /** @var string $publicStaticProp */

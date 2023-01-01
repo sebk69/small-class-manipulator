@@ -86,7 +86,7 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('TestInterface2', $classFile->getImplements()[1]);
         self::assertFalse($classFile->isAbstract());
         self::assertFalse($classFile->isFinal());
-        self::assertEquals(null, $classFile->getClassname()->getCommentBefore());
+        self::assertEquals("*\n * class TestExtends\n \n", $classFile->getClassname()->getCommentBefore());
         self::assertEquals(" Class line comment\n", $classFile->getClassname()->getLineComment());
     }
 
@@ -144,7 +144,7 @@ class ClassFileParseTest extends TestCase
         self::assertTrue($consts['PRIVATE_CONST']->getElement()->isStatic());
 
         self::assertArrayHasKey('PROTECTED_CONST', $consts);
-        self::assertEquals("PROTECTED CONST\n", $consts['PROTECTED_CONST']->getCommentBefore());
+        self::assertEquals("", $consts['PROTECTED_CONST']->getCommentBefore());
         self::assertEquals('PROTECTED_CONST', $consts['PROTECTED_CONST']->getElement()->getName());
         self::assertEquals('"const protected"', $consts['PROTECTED_CONST']->getElement()->getValue());
         self::assertEquals(ClassScope::protected, $consts['PROTECTED_CONST']->getElement()->getScope());
@@ -170,7 +170,7 @@ class ClassFileParseTest extends TestCase
         self::assertEquals(ClassScope::private, $properties['$privateProp']->getElement()->getScope());
 
         self::assertArrayHasKey('$protectedProp', $properties);
-        self::assertEquals("* @var string \$protectedProp \n", $properties['$protectedProp']->getCommentBefore());
+        self::assertEquals("", $properties['$protectedProp']->getCommentBefore());
         self::assertEquals('$protectedProp', $properties['$protectedProp']->getElement()->getName());
         self::assertEquals('int', $properties['$protectedProp']->getElement()->getType());
         self::assertEquals('0', $properties['$protectedProp']->getElement()->getValue());

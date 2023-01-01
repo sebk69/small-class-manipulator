@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it small-class-manipulator-unit-test ./vendor/bin/phpunit --testdox tests
+docker exec -it small-class-manipulator-unit-test rm -rf tests/data/Empty/* && ./vendor/bin/phpunit --testdox tests

@@ -31,7 +31,7 @@ class ClassManipulator
         return $this
             ->configuration
             ->getSelector($selector)
-            ->getClassFilepath($class->getNamespace()->getElement() . '\\' . $class->getClassname());
+            ->getClassFilepath($class->getNamespace()->getElement() . '\\' . $class->getClassname()->getElement());
     }
 
 }

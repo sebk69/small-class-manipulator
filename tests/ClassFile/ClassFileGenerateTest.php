@@ -60,6 +60,42 @@ class ClassFileGenerateTest extends TestCase
 
     }
 
+    public function testSimpleClass()
+    {
+
+        // Parse class
+        $classFile = $this->classManipulator->getClass('test', TestClass::class);
+
+        // Change namespace
+        $classFile->getNamespace()->setElement(str_replace('DataTest', 'Empty', $classFile->getNamespace()->getElement()));
+
+        // Write file
+        $classFile->generate($this->classManipulator->getClassFullPath('test', $classFile));
+
+        self::assertEquals(
+            file_get_contents(__DIR__ . '/../data/Expected/TestClass.php'),
+            file_get_contents($this->classManipulator->getClassFullPath('test', $classFile))
+        );
+
+    }
+
+    public function testAbstractClass()
+    {
+
+        // Parse class
+        $classFile = $this->classManipulator->getClass('test', TestAbstractClass::class);
+
+        // Change namespace
+        $classFile->getNamespace()->setElement(str_replace('DataTest', 'Empty', $classFile->getNamespace()->getElement()));
+
+        // Write file
+        $classFile->generate($this->classManipulator->getClassFullPath('test', $classFile));
+
+        self::assertEquals(
+            file_get_contents(__DIR__ . '/../data/Expected/TestAbstractClass.php'),
+            file_get_contents($this->classManipulator->getClassFullPath('test', $classFile))
+        );
+    }
     public function testClassExtends()
     {
 
@@ -67,9 +103,33 @@ class ClassFileGenerateTest extends TestCase
         $classFile = $this->classManipulator->getClass('test', TestExtends::class);
 
         // Change namespace
-        $classFile->getNamespace()->setElement(str_replace('DataTest', 'Empty', $classFile->getNamespace()));
+        $classFile->getNamespace()->setElement(str_replace('DataTest', 'Empty', $classFile->getNamespace()->getElement()));
 
         // Write file
         $classFile->generate($this->classManipulator->getClassFullPath('test', $classFile));
+
+        self::assertEquals(
+            file_get_contents(__DIR__ . '/../data/Expected/TestExtends.php'),
+            file_get_contents($this->classManipulator->getClassFullPath('test', $classFile))
+        );
     }
+
+    public function testClassFinal()
+    {
+
+        // Parse class
+        $classFile = $this->classManipulator->getClass('test', TestFinalClass::class);
+
+        // Change namespace
+        $classFile->getNamespace()->setElement(str_replace('DataTest', 'Empty', $classFile->getNamespace()->getElement()));
+
+        // Write file
+        $classFile->generate($this->classManipulator->getClassFullPath('test', $classFile));
+
+        self::assertEquals(
+            file_get_contents(__DIR__ . '/../data/Expected/TestFinalClass.php'),
+            file_get_contents($this->classManipulator->getClassFullPath('test', $classFile))
+        );
+    }
+
 }
