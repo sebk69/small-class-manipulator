@@ -66,7 +66,7 @@ class TestClass
     public function publicFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): string {
         return "public func";
     }
@@ -75,7 +75,7 @@ class TestClass
     private function privateFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): mixed {
         return "}private func";
     }
@@ -84,7 +84,7 @@ class TestClass
     protected function protectedFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        int ...$otherParams
     ): int {
         return $otherParams[0];
     }
@@ -92,7 +92,7 @@ class TestClass
     public static function publicStaticFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): string {
         return "public func";
     }
@@ -101,7 +101,7 @@ class TestClass
     private static function privateStaticFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): mixed {
         return "}private func";
     }
@@ -110,7 +110,7 @@ class TestClass
     protected static function protectedStaticFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        int ...$otherParams
     ): int {
         return $otherParams[0];
     }

@@ -18,7 +18,7 @@ class MethodElement extends AbstractElement
 {
 
     const REGEXP = '^[ \t\n\r]*(static)?[ \t\n\r]*(public|private|protected)?[ \t\n\r]*(static)?[ \t\n\r]*function[ \t\n\r][ \t\n\r]*([\_|a-z|A-Z|0-9]*)[ \t\n\r]*\(';
-    const PARAM_REGEXP = '[ \t\n\r]*(public|private|protected)?[ \t\n\r]*([A-Z|a-z]*)[ \t\n\r]*(\$[\_|a-z|A-Z|0-9]*)[=(\S\s)]?';
+    const PARAM_REGEXP = '[ \t\n\r]*(public|private|protected)?[ \t\n\r]*([A-Z|a-z]*)[ \t\n\r]*([\.]{0,3}\$[\_|a-z|A-Z|0-9]*)[=(\S\s)]?';
 
     protected MethodStructure $element;
 
@@ -66,6 +66,7 @@ class MethodElement extends AbstractElement
      * @throws Exception\ClassScopeException
      * @throws SyntaxErrorException
      * @throws WrongElementClass
+     * @throws \Sebk\SmallClassManipulator\ClassFile\Exception\AlreadyExistsException
      */
     public function parse(string $content, int $start): int
     {

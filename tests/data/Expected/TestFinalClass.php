@@ -71,7 +71,7 @@ final class TestFinalClass implements TestInterface
     public function publicFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): string {
         return "public func";
     }
@@ -80,7 +80,7 @@ final class TestFinalClass implements TestInterface
     private function privateFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): mixed {
         return "}private func";
     }
@@ -89,7 +89,7 @@ final class TestFinalClass implements TestInterface
     protected function protectedFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        int ...$otherParams
     ): int {
         return $otherParams[0];
     }
@@ -97,7 +97,7 @@ final class TestFinalClass implements TestInterface
     public static function publicStaticFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): string {
         return "public func";
     }
@@ -106,7 +106,7 @@ final class TestFinalClass implements TestInterface
     private static function privateStaticFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        mixed ...$otherParams
     ): mixed {
         return "}private func";
     }
@@ -115,7 +115,7 @@ final class TestFinalClass implements TestInterface
     protected static function protectedStaticFunc (
         string $param,
         mixed $param2,
-        mixed $otherParams
+        int ...$otherParams
     ): int {
         return $otherParams[0];
     }

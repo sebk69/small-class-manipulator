@@ -257,11 +257,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "public func";
     }', $methods['publicFunc']->getElement()->getContent());
@@ -285,11 +285,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "}private func";
     }', $methods['privateFunc']->getElement()->getContent());
@@ -313,11 +313,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('int', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return $otherParams[0];
     }', $methods['protectedFunc']->getElement()->getContent());
@@ -340,11 +340,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "public func";
     }', $methods['publicStaticFunc']->getElement()->getContent());
@@ -368,11 +368,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('int', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return $otherParams[0];
     }', $methods['protectedStaticFunc']->getElement()->getContent());
@@ -396,11 +396,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "}private func";
     }', $methods['privateStaticFunc']->getElement()->getContent());
@@ -574,11 +574,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "public func";
     }', $methods['publicFunc']->getElement()->getContent());
@@ -602,11 +602,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "}private func";
     }', $methods['privateFunc']->getElement()->getContent());
@@ -630,11 +630,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('int', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return $otherParams[0];
     }', $methods['protectedFunc']->getElement()->getContent());
@@ -657,11 +657,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "public func";
     }', $methods['publicStaticFunc']->getElement()->getContent());
@@ -685,11 +685,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('int', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return $otherParams[0];
     }', $methods['protectedStaticFunc']->getElement()->getContent());
@@ -713,11 +713,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "}private func";
     }', $methods['privateStaticFunc']->getElement()->getContent());
@@ -889,11 +889,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "public func";
     }', $methods['publicFunc']->getElement()->getContent());
@@ -917,11 +917,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "}private func";
     }', $methods['privateFunc']->getElement()->getContent());
@@ -945,11 +945,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('int', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return $otherParams[0];
     }', $methods['protectedFunc']->getElement()->getContent());
@@ -972,11 +972,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "public func";
     }', $methods['publicStaticFunc']->getElement()->getContent());
@@ -1000,11 +1000,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('int', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return $otherParams[0];
     }', $methods['protectedStaticFunc']->getElement()->getContent());
@@ -1028,11 +1028,11 @@ class ClassFileParseTest extends TestCase
         self::assertEquals('mixed', $parameters['$param2']->getType());
         self::assertFalse($parameters['$param2']->isStatic());
         self::assertEquals(null, $parameters['$param2']->getScope());
-        self::assertArrayHasKey('$otherParams', $parameters);
-        self::assertEquals('$otherParams', $parameters['$otherParams']->getName());
-        self::assertEquals('mixed', $parameters['$otherParams']->getType());
-        self::assertFalse($parameters['$otherParams']->isStatic());
-        self::assertEquals(null, $parameters['$otherParams']->getScope());
+        self::assertArrayHasKey('...$otherParams', $parameters);
+        self::assertEquals('...$otherParams', $parameters['...$otherParams']->getName());
+        self::assertEquals('mixed', $parameters['...$otherParams']->getType());
+        self::assertFalse($parameters['...$otherParams']->isStatic());
+        self::assertEquals(null, $parameters['...$otherParams']->getScope());
         self::assertEquals('{
         return "}private func";
     }', $methods['privateStaticFunc']->getElement()->getContent());
