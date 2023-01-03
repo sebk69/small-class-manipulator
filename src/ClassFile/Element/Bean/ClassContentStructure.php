@@ -10,11 +10,14 @@ namespace Sebk\SmallClassManipulator\ClassFile\Element\Bean;
 use Sebk\SmallClassManipulator\ClassFile\Element\ConstElement;
 use Sebk\SmallClassManipulator\ClassFile\Element\MethodElement;
 use Sebk\SmallClassManipulator\ClassFile\Element\PropertyElement;
+use Sebk\SmallClassManipulator\ClassFile\Element\TraitElement;
 use Sebk\SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
 
 class ClassContentStructure
 {
 
+    /** @var TraitElement[] */
+    protected array $traits = [];
     /** @var MethodElement[] */
     protected array $methods = [];
 
@@ -49,6 +52,14 @@ class ClassContentStructure
     }
 
     /**
+     * @return array
+     */
+    public function getTraits(): array
+    {
+        return $this->traits;
+    }
+
+    /**
      * Add a method element
      * @param MethodElement $element
      * @return $this
@@ -61,6 +72,18 @@ class ClassContentStructure
         }
 
         $this->methods[$element->getElement()->getName()] = $element;
+
+        return $this;
+    }
+
+    /**
+     * Add a trait use element
+     * @param TraitElement $element
+     * @return $this
+     */
+    public function addTrait(TraitElement $element): ClassContentStructure
+    {
+        $this->traits[$element->getElement()] = $element;
 
         return $this;
     }

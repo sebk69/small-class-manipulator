@@ -14,6 +14,7 @@ use Sebk\SmallClassManipulator\ClassFile\Element\Bean\ClassContentStructure;
 use Sebk\SmallClassManipulator\ClassFile\Element\ConstElement;
 use Sebk\SmallClassManipulator\ClassFile\Element\MethodElement;
 use Sebk\SmallClassManipulator\ClassFile\Element\PropertyElement;
+use Sebk\SmallClassManipulator\ClassFile\Element\TraitElement;
 use Sebk\SmallClassManipulator\ClassFile\Logic\ClassContentParser;
 use Sebk\SmallClassManipulator\ClassFile\Exception\ClassNotPhpException;
 use Sebk\SmallClassManipulator\ClassFile\Exception\NotFoundException;
@@ -216,6 +217,8 @@ class ClassFile
      * Parse file
      * @return void
      * @throws ClassNotPhpException
+     * @throws Element\Exception\ClassScopeException
+     * @throws Element\Exception\WrongElementClass
      * @throws SyntaxErrorException
      */
     protected function parse(): void
@@ -514,6 +517,15 @@ class ClassFile
                 $element->setCommentBefore($commentData['comment']);
                 $start = $element->parse($content, $start);
                 $result->addMethod($element);
+            } else if (TraitElement::nextElementIsTrait($content, $start)) {
+                // Is trait use
+                $element = new TraitElement();
+                $element->setCommentBefore($commentData['comment']);
+                $start = $element->parse($content, $start);
+                $after = AbstractElement::parseAfter($content, $start);
+                $start = $after['newStart'];
+                $element->setLineComment($after['comment']);
+                $result->addTrait($element);
             }
 
             if (!isset($element) && trim(mb_substr($content, $start)) != '}') {
@@ -581,6 +593,13 @@ class ClassFile
                 (empty($property->getElement()->getType()) ? 'mixed ' : $property->getElement()->getType() . ' ') .
                 $property->getElement()->getName() . " = " . $property->getElement()->getValue() . ';';
             $output .= $property->getFormatedLineComment() . "\n";
+        }
+
+        // Write traits use
+        foreach ($this->getContentStructure()->getTraits() as $trait) {
+            $output .= (!empty($trait->getFormatedCommentBefore()) ? "\n" . self::SPACE_INDENT : ''). $trait->getFormatedCommentBefore();
+            $output .= self::SPACE_INDENT . 'use ' . $trait->getElement() . ';';
+            $output .= $trait->getFormatedLineComment() . "\n";
         }
 
         // Write methods
