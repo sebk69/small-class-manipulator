@@ -3,8 +3,9 @@ version: "3.7"
 services:
   unit-test:
     container_name: small-class-manipulator-unit-test
-    build: .
-    environment:
-      - BUILD=0 # If set to 0, container will sleep to let you run all tests commands you want when you develop tests
+    build:
+      context: .
+      args:
+        - BUILD=1 # If set to 0, container will sleep to let you run all tests commands you want when you develop tests
     volumes:
       - .:/usr/lib/small-class-manipulator

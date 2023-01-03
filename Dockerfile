@@ -1,5 +1,7 @@
 FROM php:8.1-cli
 
+ARG BUILD
+
 # install composer
 RUN apt-get update && \
     apt-get install -y git zip
@@ -14,6 +16,7 @@ WORKDIR /usr/lib/small-class-manipulator
 COPY . /usr/lib/small-class-manipulator
 
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer update
-RUN if [ '$BUILD' == '1' ]; then rm -r tests/data/Empty/* && ./vendor/bin/phpunit --testdox tests; fi
+RUN echo "$BUILD"
+RUN bash -c 'if [ "$BUILD" == "1" ]; then rm -r tests/data/Empty/* && ./vendor/bin/phpunit --testdox tests; fi'
 
-ENTRYPOINT bash -c 'if [ '$BUILD' == '0' ]; then sleep infinity; fi'
+ENTRYPOINT bash -c 'if [ "$BUILD" == "0" ]; then sleep infinity; fi'
