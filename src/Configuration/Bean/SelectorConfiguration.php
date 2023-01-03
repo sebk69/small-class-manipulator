@@ -6,10 +6,10 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\Configuration\Bean;
+namespace SmallClassManipulator\Configuration\Bean;
 
-use Sebk\SmallClassManipulator\Configuration\Exception\NotMatchException;
-use Sebk\SmallClassManipulator\Configuration\Exception\SyntaxErrorException;
+use SmallClassManipulator\Configuration\Exception\NotMatchException;
+use SmallClassManipulator\Configuration\Exception\SyntaxErrorException;
 
 class SelectorConfiguration implements \ArrayAccess
 {
@@ -78,7 +78,7 @@ class SelectorConfiguration implements \ArrayAccess
      * @param $fullClassname
      * @return string
      * @throws NotMatchException
-     * @throws \Sebk\SmallClassManipulator\Configuration\Exception\BadNamespace
+     * @throws \SmallClassManipulator\Configuration\Exception\BadNamespace
      */
     public function getClassFilepath($fullClassname)
     {

@@ -5,12 +5,12 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\Test\Configuration;
+namespace SmallClassManipulator\Test\Configuration;
 
 use DataTest\Testing\TestClass;
 use PHPUnit\Framework\TestCase;
-use Sebk\SmallClassManipulator\Configuration\Bean\SelectorConfiguration;
-use Sebk\SmallClassManipulator\Configuration\Configuration;
+use SmallClassManipulator\Configuration\Bean\SelectorConfiguration;
+use SmallClassManipulator\Configuration\Configuration;
 
 class ConfigurationTest extends TestCase
 {

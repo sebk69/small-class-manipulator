@@ -5,14 +5,14 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element;
+namespace SmallClassManipulator\ClassFile\Element;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Bean\MethodStructure;
-use Sebk\SmallClassManipulator\ClassFile\Element\Bean\TypedVarStructure;
-use Sebk\SmallClassManipulator\ClassFile\Element\Exception\WrongElementClass;
-use Sebk\SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
-use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
-use Sebk\SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
+use SmallClassManipulator\ClassFile\Element\Bean\MethodStructure;
+use SmallClassManipulator\ClassFile\Element\Bean\TypedVarStructure;
+use SmallClassManipulator\ClassFile\Element\Exception\WrongElementClass;
+use SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
+use SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
+use SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
 
 class MethodElement extends AbstractElement
 {
@@ -66,7 +66,7 @@ class MethodElement extends AbstractElement
      * @throws Exception\ClassScopeException
      * @throws SyntaxErrorException
      * @throws WrongElementClass
-     * @throws \Sebk\SmallClassManipulator\ClassFile\Exception\AlreadyExistsException
+     * @throws \SmallClassManipulator\ClassFile\Exception\AlreadyExistsException
      */
     public function parse(string $content, int $start): int
     {
@@ -113,7 +113,7 @@ class MethodElement extends AbstractElement
      * @return int
      * @throws Exception\ClassScopeException
      * @throws SyntaxErrorException
-     * @throws \Sebk\SmallClassManipulator\ClassFile\Exception\AlreadyExistsException
+     * @throws \SmallClassManipulator\ClassFile\Exception\AlreadyExistsException
      */
     protected function parseParameters($content, $start): int
     {

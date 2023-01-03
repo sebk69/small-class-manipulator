@@ -6,9 +6,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element\Trait;
+namespace SmallClassManipulator\ClassFile\Element\Trait;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
+use SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
 
 trait ClassScoped
 {

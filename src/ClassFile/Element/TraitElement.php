@@ -5,9 +5,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element;
+namespace SmallClassManipulator\ClassFile\Element;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Exception\WrongElementClass;
+use SmallClassManipulator\ClassFile\Element\Exception\WrongElementClass;
 
 class TraitElement extends AbstractElement
 {

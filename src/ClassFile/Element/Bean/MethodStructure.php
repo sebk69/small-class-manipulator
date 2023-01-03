@@ -5,13 +5,13 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element\Bean;
+namespace SmallClassManipulator\ClassFile\Element\Bean;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
-use Sebk\SmallClassManipulator\ClassFile\Element\MethodElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
-use Sebk\SmallClassManipulator\ClassFile\Exception\AlreadyExistsException;
-use Sebk\SmallClassManipulator\ClassFile\Exception\NotFoundException;
+use SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
+use SmallClassManipulator\ClassFile\Element\MethodElement;
+use SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
+use SmallClassManipulator\ClassFile\Exception\AlreadyExistsException;
+use SmallClassManipulator\ClassFile\Exception\NotFoundException;
 
 class MethodStructure
 {

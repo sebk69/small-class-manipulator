@@ -5,13 +5,13 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element\Bean;
+namespace SmallClassManipulator\ClassFile\Element\Bean;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\ConstElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\MethodElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\PropertyElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\TraitElement;
-use Sebk\SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
+use SmallClassManipulator\ClassFile\Element\ConstElement;
+use SmallClassManipulator\ClassFile\Element\MethodElement;
+use SmallClassManipulator\ClassFile\Element\PropertyElement;
+use SmallClassManipulator\ClassFile\Element\TraitElement;
+use SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
 
 class ClassContentStructure
 {

@@ -5,11 +5,11 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\Configuration\Bean;
+namespace SmallClassManipulator\Configuration\Bean;
 
-use Sebk\SmallClassManipulator\Configuration\Exception\BadNamespace;
-use Sebk\SmallClassManipulator\Configuration\Exception\NotMatchException;
-use Sebk\SmallClassManipulator\Configuration\Exception\SyntaxErrorException;
+use SmallClassManipulator\Configuration\Exception\BadNamespace;
+use SmallClassManipulator\Configuration\Exception\NotMatchException;
+use SmallClassManipulator\Configuration\Exception\SyntaxErrorException;
 
 class NamespaceConfiguration
 {

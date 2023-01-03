@@ -5,7 +5,7 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\Configuration\Exception;
+namespace SmallClassManipulator\Configuration\Exception;
 
 class MissingParameterException extends ConfigurationException
 {

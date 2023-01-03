@@ -5,10 +5,10 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator;
+namespace SmallClassManipulator;
 
-use Sebk\SmallClassManipulator\ClassFile\ClassFile;
-use Sebk\SmallClassManipulator\Configuration\Configuration;
+use SmallClassManipulator\ClassFile\ClassFile;
+use SmallClassManipulator\Configuration\Configuration;
 
 class ClassManipulator
 {

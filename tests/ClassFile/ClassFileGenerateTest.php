@@ -5,7 +5,7 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\Test\ClassFile;
+namespace SmallClassManipulator\Test\ClassFile;
 
 use DataTest\Testing\Contracts\TestInterface;
 use DataTest\Testing\Contracts\TestInterface2;
@@ -14,9 +14,9 @@ use DataTest\Testing\TestAbstractClass;
 use DataTest\Testing\TestClass;
 use DataTest\Testing\TestExtends;
 use DataTest\Testing\TestFinalClass;
-use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
-use Sebk\SmallClassManipulator\Configuration\Configuration;
-use Sebk\SmallClassManipulator\ClassManipulator;
+use SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
+use SmallClassManipulator\Configuration\Configuration;
+use SmallClassManipulator\ClassManipulator;
 
 class ClassFileGenerateTest extends TestCase
 {

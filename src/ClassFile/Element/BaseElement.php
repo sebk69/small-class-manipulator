@@ -5,9 +5,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element;
+namespace SmallClassManipulator\ClassFile\Element;
 
-use Sebk\SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
+use SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
 
 class BaseElement extends AbstractElement
 {

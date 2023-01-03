@@ -5,11 +5,11 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element;
+namespace SmallClassManipulator\ClassFile\Element;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Bean\TypedVarStructure;
-use Sebk\SmallClassManipulator\ClassFile\Element\Exception\WrongElementClass;
-use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
+use SmallClassManipulator\ClassFile\Element\Bean\TypedVarStructure;
+use SmallClassManipulator\ClassFile\Element\Exception\WrongElementClass;
+use SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
 
 class PropertyElement extends AbstractElement
 {

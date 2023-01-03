@@ -6,19 +6,19 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile;
+namespace SmallClassManipulator\ClassFile;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\AbstractElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\BaseElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\Bean\ClassContentStructure;
-use Sebk\SmallClassManipulator\ClassFile\Element\ConstElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\MethodElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\PropertyElement;
-use Sebk\SmallClassManipulator\ClassFile\Element\TraitElement;
-use Sebk\SmallClassManipulator\ClassFile\Logic\ClassContentParser;
-use Sebk\SmallClassManipulator\ClassFile\Exception\ClassNotPhpException;
-use Sebk\SmallClassManipulator\ClassFile\Exception\NotFoundException;
-use Sebk\SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
+use SmallClassManipulator\ClassFile\Element\AbstractElement;
+use SmallClassManipulator\ClassFile\Element\BaseElement;
+use SmallClassManipulator\ClassFile\Element\Bean\ClassContentStructure;
+use SmallClassManipulator\ClassFile\Element\ConstElement;
+use SmallClassManipulator\ClassFile\Element\MethodElement;
+use SmallClassManipulator\ClassFile\Element\PropertyElement;
+use SmallClassManipulator\ClassFile\Element\TraitElement;
+use SmallClassManipulator\ClassFile\Logic\ClassContentParser;
+use SmallClassManipulator\ClassFile\Exception\ClassNotPhpException;
+use SmallClassManipulator\ClassFile\Exception\NotFoundException;
+use SmallClassManipulator\ClassFile\Exception\SyntaxErrorException;
 
 class ClassFile
 {

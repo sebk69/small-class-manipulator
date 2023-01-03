@@ -5,10 +5,10 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element\Bean;
+namespace SmallClassManipulator\ClassFile\Element\Bean;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
-use Sebk\SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
+use SmallClassManipulator\ClassFile\Element\Enum\ClassScope;
+use SmallClassManipulator\ClassFile\Element\Trait\ClassScoped;
 
 class ConstantStructure
 {

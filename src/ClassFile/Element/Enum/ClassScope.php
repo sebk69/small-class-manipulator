@@ -5,9 +5,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element\Enum;
+namespace SmallClassManipulator\ClassFile\Element\Enum;
 
-use Sebk\SmallClassManipulator\ClassFile\Element\Exception\ClassScopeException;
+use SmallClassManipulator\ClassFile\Element\Exception\ClassScopeException;
 
 enum ClassScope {
     case public;

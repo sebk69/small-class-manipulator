@@ -5,7 +5,7 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\ClassFile\Element\Exception;
+namespace SmallClassManipulator\ClassFile\Element\Exception;
 
 class ClassScopeException extends \Exception
 {

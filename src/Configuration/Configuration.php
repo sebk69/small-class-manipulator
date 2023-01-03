@@ -5,13 +5,13 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallClassManipulator\Configuration;
+namespace SmallClassManipulator\Configuration;
 
-use Sebk\SmallClassManipulator\Configuration\Bean\SelectorConfiguration;
-use Sebk\SmallClassManipulator\Configuration\Exception\FileNotFoundException;
-use Sebk\SmallClassManipulator\Configuration\Exception\MissingParameterException;
-use Sebk\SmallClassManipulator\Configuration\Exception\SelectorNotFoundException;
-use Sebk\SmallClassManipulator\Configuration\Exception\WrongParameterTypeException;
+use SmallClassManipulator\Configuration\Bean\SelectorConfiguration;
+use SmallClassManipulator\Configuration\Exception\FileNotFoundException;
+use SmallClassManipulator\Configuration\Exception\MissingParameterException;
+use SmallClassManipulator\Configuration\Exception\SelectorNotFoundException;
+use SmallClassManipulator\Configuration\Exception\WrongParameterTypeException;
 
 class Configuration
 {
