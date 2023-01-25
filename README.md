@@ -4,6 +4,16 @@ This lib allow you to read and parse a php file containing class into a php obje
 
 You can then easily add or remove components and rewrite file with modifications.
 
+# Migrated
+
+This lib has been migrated to [framagit](https://framagit.org/small/small-projects) project.
+
+A new composer package is available at https://packagist.org/packages/small/class-manipulator
+
+Future commits will be done on framagit.
+
+This repository will be removed in few month.
+
 ## Parsing and generating classes
 
 ### Manipulator instanciation
